@@ -78,6 +78,10 @@ void GameSystem::Execute()
 		16, 17, 18,    19, 18, 17,
 		20, 21, 22,    23, 22, 21,
 	};*/
+		WORD g_IndexListRect[]{
+		0,  1,  2,     3,  2,  1,
+		};
+
 
 		int a=0;
 
@@ -105,20 +109,21 @@ void GameSystem::Execute()
 		D3D.m_device->CreateBuffer(&vbDesc, &initData, &vb);
 
 		//インデックスバッファ
-		/*D3D11_BUFFER_DESC vbDesc;
-		vbDesc.ByteWidth = sizeof(Vertex) * 24;
-		vbDesc.Usage = D3D11_USAGE_DEFAULT;
-		vbDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		vbDesc.CPUAccessFlags = 0;
-		vbDesc.MiscFlags = 0;
-		vbDesc.StructureByteStride = 0;
+		D3D11_BUFFER_DESC ibDesc;
+		ibDesc.ByteWidth = sizeof(g_IndexListRect);
+		ibDesc.Usage = D3D11_USAGE_DEFAULT;
+		ibDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+		ibDesc.CPUAccessFlags = 0;
+		ibDesc.MiscFlags = 0;
+		ibDesc.StructureByteStride = 0;
 
-		D3D11_SUBRESOURCE_DATA vrData;
-		vrData.pSysMem = g_VertexList;
-		vrData.SysMemPitch = 0;
-		vrData.SysMemSlicePitch = 0;
+		ID3D11Buffer* ib;
+		D3D11_SUBRESOURCE_DATA idData;
+		idData.pSysMem = g_IndexListRect;
+		idData.SysMemPitch = 0;
+		idData.SysMemSlicePitch = 0;
 
-		hr = m_pDevice->CreateBuffer(&vbDesc, &vrData, &m_pVertexBuffer);*/
+		D3D.m_device->CreateBuffer(&ibDesc, &idData, &ib);
 
 		//++++++++++++++++++++ ここから描画していきます ++++++++++++++++++++
 
@@ -128,6 +133,8 @@ void GameSystem::Execute()
 		UINT stride = sizeof(VertexType);
 		UINT offset = 0;
 		D3D.m_deviceContext->IASetVertexBuffers(0, 1, vb.GetAddressOf(), &stride, &offset);
+		//インデックスバッファをセット
+		D3D.m_deviceContext->IASetIndexBuffer(ib, DXGI_FORMAT_R16_UINT, 0);
 		// プロミティブ・トポロジーをセット
 		D3D.m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
