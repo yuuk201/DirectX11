@@ -11,6 +11,13 @@ struct VSOutput
     float4 Color : COLOR0;//色
 };
 
+cbuffer ConstantBuffer:register(b0)
+{
+    float4x4 World;         //ワールド変換行列
+    float4x4 View;          //ビュー変換行列
+    float4x4 Projection;    //透視射影変換行列
+}
+
 //========================================
 // 頂点シェーダー
 //========================================
@@ -20,7 +27,11 @@ VSOutput VS(float4 pos : POSITION,
 {
     VSOutput Out;
     // 頂点座標を、何も加工せずそのまま出力
-    Out.Pos = pos;
+    //Out.Pos = pos;
+    Out.Pos = mul(pos, World);
+    Out.Pos = mul(Out.Pos, View);
+    Out.Pos = mul(Out.Pos, Projection);
+    
     // 頂点のUV座標を、何も加工せずそのまま出力
     Out.UV = uv;
     Out.Color = col;

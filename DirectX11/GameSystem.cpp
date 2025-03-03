@@ -31,14 +31,14 @@ void GameSystem::Execute()
 			DirectX::XMFLOAT4 Color; // 色
 		};
 		// 三角形を作るため、頂点を３つ作る
-		VertexType v[4] = {
+		/*VertexType v[4] = {
 			{{-0.5f, -0.5f, 0}, {0, 1}, { 1.0f, 0.0f, 0.0f, 1.0f }},
 			{{-0.5f,  0.5f, 0}, {0, 0}, { 1.0f, 0.0f, 0.0f, 1.0f }},
 			{{ 0.5f, -0.5f, 0}, {1, 1}, { 1.0f, 0.0f, 0.0f, 1.0f }},
 			{{ 0.5f,  0.5f, 0}, {1, 0}, { 1.0f, 0.0f, 0.0f, 1.0f }},
-		};
+		};*/
 
-		/*VertexType g_VertexList[]{
+		VertexType g_VertexList[]{
 		{ { -0.5f,  0.5f, -0.5f }, {0, 1}, { 1.0f, 0.0f, 0.0f, 1.0f } },
 		{ {  0.5f,  0.5f, -0.5f }, {0, 0}, { 1.0f, 0.0f, 0.0f, 1.0f } },
 		{ { -0.5f, -0.5f, -0.5f }, {1, 1}, { 1.0f, 0.0f, 0.0f, 1.0f } },
@@ -49,26 +49,58 @@ void GameSystem::Execute()
 		{ {  0.5f,  0.5f,  0.5f }, {1, 1}, { 0.0f, 1.0f, 1.0f, 1.0f } },
 		{ {  0.5f, -0.5f,  0.5f }, {1, 0}, { 0.0f, 1.0f, 1.0f, 1.0f } },
 
-		{ { -0.5f,  0.5f,  0.5f }, {0, 1}, { 1.0f, 1.0f, 0.0f, 1.0f } },
-		{ { -0.5f,  0.5f, -0.5f }, {0, 0}, { 1.0f, 1.0f, 0.0f, 1.0f } },
-		{ { -0.5f, -0.5f,  0.5f }, {1, 1}, { 1.0f, 1.0f, 0.0f, 1.0f } },
-		{ { -0.5f, -0.5f, -0.5f }, {1, 0}, { 1.0f, 1.0f, 0.0f, 1.0f } },
+		{ { -0.5f,  0.5f,	0.5f }, {0, 1}, { 1.0f, 1.0f, 0.0f, 1.0f } },
+		{ { -0.5f,  0.5f,	-0.5f }, {0, 0}, { 1.0f, 1.0f, 0.0f, 1.0f } },
+		{ { -0.5f, -0.5f,	0.5f }, {1, 1}, { 1.0f, 1.0f, 0.0f, 1.0f } },
+		{ { -0.5f, -0.5f,	-0.5f }, {1, 0}, { 1.0f, 1.0f, 0.0f, 1.0f } },
 
-		{ {  0.5f,  0.5f,  0.5f }, {0, 1}, { 0.0f, 0.0f, 1.0f, 1.0f } },
-		{ {  0.5f, -0.5f,  0.5f }, {0, 0}, { 0.0f, 0.0f, 1.0f, 1.0f } },
-		{ {  0.5f,  0.5f, -0.5f }, {1, 1}, { 0.0f, 0.0f, 1.0f, 1.0f } },
-		{ {  0.5f, -0.5f, -0.5f }, {1, 0}, { 0.0f, 0.0f, 1.0f, 1.0f } },
+		{ {  0.5f,  0.5f,	0.5f }, {0, 1}, { 0.0f, 0.0f, 1.0f, 1.0f } },
+		{ {  0.5f, -0.5f,	0.5f }, {0, 0}, { 0.0f, 0.0f, 1.0f, 1.0f } },
+		{ {  0.5f,  0.5f,	-0.5f }, {1, 1}, { 0.0f, 0.0f, 1.0f, 1.0f } },
+		{ {  0.5f, -0.5f,	-0.5f }, {1, 0}, { 0.0f, 0.0f, 1.0f, 1.0f } },
 
-		{ { -0.5f,  0.5f,  0.5f }, {0, 1}, { 1.0f, 0.0f, 1.0f, 1.0f } },
-		{ {  0.5f,  0.5f,  0.5f }, {0, 0}, { 1.0f, 0.0f, 1.0f, 1.0f } },
-		{ { -0.5f,  0.5f, -0.5f }, { 1.0f, 0.0f, 1.0f, 1.0f } },
-		{ {  0.5f,  0.5f, -0.5f }, {1, 0}, { 1.0f, 0.0f, 1.0f, 1.0f } },
+		{ { -0.5f,  0.5f,	0.5f }, {0, 1}, { 1.0f, 0.0f, 1.0f, 1.0f } },
+		{ {  0.5f,  0.5f,	0.5f }, {0, 0}, { 1.0f, 0.0f, 1.0f, 1.0f } },
+		{ { -0.5f,  0.5f,	-0.5f }, {1, 1}, { 1.0f, 0.0f, 1.0f, 1.0f } },
+		{ {  0.5f,  0.5f,	-0.5f }, {1, 0}, { 1.0f, 0.0f, 1.0f, 1.0f } },
 
-		{ { -0.5f, -0.5f,  0.5f }, {0, 1}, { 0.0f, 1.0f, 0.0f, 1.0f } },
-		{ { -0.5f, -0.5f, -0.5f }, {0, 0}, { 0.0f, 1.0f, 0.0f, 1.0f } },
-		{ {  0.5f, -0.5f,  0.5f }, {1, 1}, { 0.0f, 1.0f, 0.0f, 1.0f } },
-		{ {  0.5f, -0.5f, -0.5f }, {1, 0}, { 0.0f, 1.0f, 0.0f, 1.0f } },
+		{ { -0.5f, -0.5f,	0.5f }, {0, 1}, { 0.0f, 1.0f, 0.0f, 1.0f } },
+		{ { -0.5f, -0.5f,	-0.5f }, {0, 0}, { 0.0f, 1.0f, 0.0f, 1.0f } },
+		{ {  0.5f, -0.5f,	0.5f }, {1, 1}, { 0.0f, 1.0f, 0.0f, 1.0f } },
+		{ {  0.5f, -0.5f,	-0.5f }, {1, 0}, { 0.0f, 1.0f, 0.0f, 1.0f } },
 		};
+		/*VertexType g_VertexList[]{
+		{ { -0.5f,  0.5f, 0.5f }, {0, 1}, { 1.0f, 0.0f, 0.0f, 1.0f } },
+		{ {  0.5f,  0.5f, 0.5f }, {0, 0}, { 1.0f, 0.0f, 0.0f, 1.0f } },
+		{ { -0.5f, -0.5f, 0.5f }, {1, 1}, { 1.0f, 0.0f, 0.0f, 1.0f } },
+		{ {  0.5f, -0.5f, 0.5f }, {1, 0}, { 1.0f, 0.0f, 0.0f, 1.0f } },
+
+		{ { -0.5f,  0.5f,  0.5f }, {0, 1}, { 0.0f, 1.0f, 1.0f, 1.0f } },
+		{ { -0.5f, -0.5f,  0.5f }, {0, 0}, { 0.0f, 1.0f, 1.0f, 1.0f } },
+		{ {  0.5f,  0.5f,  0.5f }, {1, 1}, { 0.0f, 1.0f, 1.0f, 1.0f } },
+		{ {  0.5f, -0.5f,  0.5f }, {1, 0}, { 0.0f, 1.0f, 1.0f, 1.0f } },
+
+		{ { -0.5f,  0.5f,  0.5f }, {0, 1}, { 1.0f, 1.0f, 0.0f, 1.0f } },
+		{ { -0.5f,  0.5f, 0.5f }, {0, 0}, { 1.0f, 1.0f, 0.0f, 1.0f } },
+		{ { -0.5f, -0.5f,  0.5f }, {1, 1}, { 1.0f, 1.0f, 0.0f, 1.0f } },
+		{ { -0.5f, -0.5f, 0.5f }, {1, 0}, { 1.0f, 1.0f, 0.0f, 1.0f } },
+
+		{ {  0.5f,  0.5f,	0.5f }, {0, 1}, { 0.0f, 0.0f, 1.0f, 1.0f } },
+		{ {  0.5f, -0.5f,	0.5f }, {0, 0}, { 0.0f, 0.0f, 1.0f, 1.0f } },
+		{ {  0.5f,  0.5f,	0.5f }, {1, 1}, { 0.0f, 0.0f, 1.0f, 1.0f } },
+		{ {  0.5f, -0.5f,	0.5f }, {1, 0}, { 0.0f, 0.0f, 1.0f, 1.0f } },
+
+		{ { -0.5f,  0.5f,	0.5f  }, {0, 1}, { 1.0f, 0.0f, 1.0f, 1.0f } },
+		{ {  0.5f,  0.5f,	0.5f }, {0, 0}, { 1.0f, 0.0f, 1.0f, 1.0f } },
+		{ { -0.5f,  0.5f,	0.5f }, {1, 1}, { 1.0f, 0.0f, 1.0f, 1.0f } },
+		{ {  0.5f,  0.5f,	0.5f }, {1, 0}, { 1.0f, 0.0f, 1.0f, 1.0f } },
+
+		{ { -0.5f, -0.5f, 0.5f }, {0, 1}, { 0.0f, 1.0f, 0.0f, 1.0f } },
+		{ { -0.5f, -0.5f, 0.5f}, {0, 0}, { 0.0f, 1.0f, 0.0f, 1.0f } },
+		{ {  0.5f, -0.5f, 0.5f }, {1, 1}, { 0.0f, 1.0f, 0.0f, 1.0f } },
+		{ {  0.5f, -0.5f, 0.5f}, {1, 0}, { 0.0f, 1.0f, 0.0f, 1.0f } },
+		};*/
+
 
 	WORD g_IndexList[]{
 		0,  1,  2,     3,  2,  1,
@@ -77,10 +109,10 @@ void GameSystem::Execute()
 		12, 13, 14,    15, 14, 13,
 		16, 17, 18,    19, 18, 17,
 		20, 21, 22,    23, 22, 21,
-	};*/
-		WORD g_IndexListRect[]{
+	};
+		/*WORD g_IndexListRect[]{
 		0,  1,  2,     3,  2,  1,
-		};
+		};*/
 
 
 		int a=0;
@@ -95,7 +127,7 @@ void GameSystem::Execute()
 		// ・今回は頂点バッファにするぞ！って感じの設定
 		D3D11_BUFFER_DESC vbDesc = {};
 		vbDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;	// デバイスにバインドするときの種類(頂点バッファ、インデックスバッファ、定数バッファなど)
-		vbDesc.ByteWidth = sizeof(v);					// 作成するバッファのバイトサイズ
+		vbDesc.ByteWidth = sizeof(g_VertexList);					// 作成するバッファのバイトサイズ
 		vbDesc.MiscFlags = 0;							// その他のフラグ
 		vbDesc.StructureByteStride = 0;					// 構造化バッファの場合、その構造体のサイズ
 		vbDesc.Usage = D3D11_USAGE_DEFAULT;				// 作成するバッファの使用法
@@ -104,13 +136,13 @@ void GameSystem::Execute()
 		// 上の仕様を渡して頂点バッファを作ってもらう
 		// もちろんデバイスさんにお願いする
 		ComPtr<ID3D11Buffer> vb;
-		D3D11_SUBRESOURCE_DATA initData = { &v[0], sizeof(v), 0 };	// 書き込むデータ
+		D3D11_SUBRESOURCE_DATA initData = { &g_VertexList[0], sizeof(g_VertexList), 0 };	// 書き込むデータ
 		// 頂点バッファの作成
 		D3D.m_device->CreateBuffer(&vbDesc, &initData, &vb);
 
 		//インデックスバッファ
 		D3D11_BUFFER_DESC ibDesc;
-		ibDesc.ByteWidth = sizeof(g_IndexListRect);
+		ibDesc.ByteWidth = sizeof(g_IndexList);
 		ibDesc.Usage = D3D11_USAGE_DEFAULT;
 		ibDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		ibDesc.CPUAccessFlags = 0;
@@ -119,11 +151,49 @@ void GameSystem::Execute()
 
 		ID3D11Buffer* ib;
 		D3D11_SUBRESOURCE_DATA idData;
-		idData.pSysMem = g_IndexListRect;
+		idData.pSysMem = g_IndexList;
 		idData.SysMemPitch = 0;
 		idData.SysMemSlicePitch = 0;
 
 		D3D.m_device->CreateBuffer(&ibDesc, &idData, &ib);
+
+		//定数バッファ
+		struct ConstantBuffer {
+			DirectX::XMFLOAT4X4 world;
+			DirectX::XMFLOAT4X4 view;
+			DirectX::XMFLOAT4X4 projection;
+		};
+		ID3D11Buffer* cbuffer;
+		D3D11_BUFFER_DESC cbDesc;
+		cbDesc.ByteWidth = sizeof(ConstantBuffer);
+		cbDesc.Usage = D3D11_USAGE_DEFAULT;
+		cbDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		cbDesc.CPUAccessFlags = 0;
+		cbDesc.MiscFlags = 0;
+		cbDesc.StructureByteStride = 0;
+
+		D3D.m_device->CreateBuffer(&cbDesc, NULL, &cbuffer);
+
+		//定数バッファの中身を設定
+		DirectX::XMMATRIX worldMatrix = DirectX::XMMatrixTranslation(0.0f, 0.0f, 0.0f);
+
+		DirectX::XMVECTOR eye = DirectX::XMVectorSet(2.0f, 2.0f, -2.0f, 0.0f);
+		DirectX::XMVECTOR focus = DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
+		DirectX::XMVECTOR up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+		DirectX::XMMATRIX viewMatrix = DirectX::XMMatrixLookAtLH(eye, focus, up);
+
+		float    fov = DirectX::XMConvertToRadians(45.0f);
+		float    aspect = 1280 / 720;
+		float    nearZ = 0.1f;
+		float    farZ = 100.0f;
+		DirectX::XMMATRIX projMatrix = DirectX::XMMatrixPerspectiveFovLH(fov, aspect, nearZ, farZ);
+
+		ConstantBuffer cb;
+		XMStoreFloat4x4(&cb.world, XMMatrixTranspose(worldMatrix));
+		XMStoreFloat4x4(&cb.view, XMMatrixTranspose(viewMatrix));
+		XMStoreFloat4x4(&cb.projection, XMMatrixTranspose(projMatrix));
+		D3D.m_deviceContext->UpdateSubresource(cbuffer, 0, NULL, &cb, 0, 0);
+
 
 		//++++++++++++++++++++ ここから描画していきます ++++++++++++++++++++
 
@@ -137,6 +207,8 @@ void GameSystem::Execute()
 		D3D.m_deviceContext->IASetIndexBuffer(ib, DXGI_FORMAT_R16_UINT, 0);
 		// プロミティブ・トポロジーをセット
 		D3D.m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		//定数バッファをセット
+		D3D.m_deviceContext->VSSetConstantBuffers(0, 1, &cbuffer);
 
 		//-----------------------------
 		// シェーダーをセット
@@ -153,7 +225,8 @@ void GameSystem::Execute()
 		// 描画実行
 		//-----------------------------
 		// デバイスコンテキストくん、上記のセットした内容で描画してください、とお願いする
-		D3D.m_deviceContext->Draw(4, 0);
+		//4頂点×6面分で24をdrawしている
+		D3D.m_deviceContext->Draw(24, 0);
 
 	}
 
