@@ -126,8 +126,18 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // グローバル変数にインスタンス ハンドルを格納する
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+   HWND hWnd = CreateWindowW(
+       szWindowClass,
+       szTitle,
+       WS_OVERLAPPEDWINDOW - WS_THICKFRAME,
+       CW_USEDEFAULT,
+       0,
+       CW_USEDEFAULT,
+       0,
+       nullptr,
+       nullptr,
+       hInstance,
+       nullptr);
 
    if (!hWnd)
    {
@@ -138,6 +148,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    Direct3D::CreateInstance();
    // Direct3D初期化
    D3D.Initialize(hWnd, 1280, 720);
+
+   // ウィンドウのクライアントサイズを設定
+   RECT rcWnd, rcClient;
+   GetWindowRect(hWnd, &rcWnd);
+   GetClientRect(hWnd, &rcClient);
+   int newWidth = (rcWnd.right - rcWnd.left) - (rcClient.right - rcClient.left) + 1280;
+   int newHeight = (rcWnd.bottom - rcWnd.top) - (rcClient.bottom - rcClient.top) + 720;
+   SetWindowPos(hWnd, NULL, 0, 0, newWidth, newHeight, SWP_NOMOVE | SWP_NOZORDER);
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
