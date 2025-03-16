@@ -6,6 +6,7 @@
 #include "Direct3D.h"
 #include "GameSystem.h"
 #include "framework.h"
+#include <fbxsdk.h>
 
 #define MAX_LOADSTRING 100
 
@@ -25,6 +26,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+	/*fbxsdk::FbxManager* fbx_manager = fbxsdk::FbxManager::Create();
+
+	fbx_manager->Destroy();*/
+
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
