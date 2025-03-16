@@ -44,9 +44,9 @@ VSOutput VS(float4 pos : POSITION,
 float4 PS(VSOutput In) : SV_Target0
 {
     // テクスチャから色を取得
-    //float4 texColor = g_texture.Sample(g_sampler, In.UV);
+    float4 texColor = g_texture.Sample(g_sampler, In.UV);
     //カラーから色を取得
-    float4 texColor = In.Color;
+    //float4 texColor = In.Color;
 
 // 緑色にする
 return texColor;
